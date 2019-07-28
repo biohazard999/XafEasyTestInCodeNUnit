@@ -23,7 +23,7 @@ namespace EasyTest.Tests.Utils {
             List<XmlAttribute> additionalAttributes = new List<XmlAttribute>();
             XmlDocument doc = new XmlDocument();
             XmlAttribute entry = doc.CreateAttribute("FileName");
-            entry.Value = Path.GetFullPath(Path.Combine(@"..\..\..\" + applicationDirectoryName, @"Bin\EasyTest\" + applicationName));
+            entry.Value = Path.GetFullPath(Path.Combine(@"..\..\..\..\" + applicationDirectoryName, @"bin\EasyTest\net462\" + applicationName));
             additionalAttributes.Add(entry);
             entry = doc.CreateAttribute("CommunicationPort");
             entry.Value = "4100";

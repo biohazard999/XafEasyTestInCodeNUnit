@@ -9,9 +9,10 @@
     <Company>-</Company>
     <Product>TestApplication.Module.Web</Product>
     <Copyright>Copyright © - 2007</Copyright>
-    <AssemblyVersion>1.0.*</AssemblyVersion>
-    <FileVersion>1.0.*</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Configurations>Debug;Release;EasyTest</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
