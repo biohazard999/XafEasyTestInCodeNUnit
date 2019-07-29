@@ -23,7 +23,10 @@ namespace EasyTest.Tests {
             Assert.AreEqual("Development Department", commandAdapter.GetFieldValue("Department"));
             Assert.AreEqual("Manager", commandAdapter.GetFieldValue("Position"));
 
-            //commandAdapter.DoAction("Edit", null);
+            if (IsWeb)
+            {
+                commandAdapter.DoAction("Edit", null);
+            }
 
             commandAdapter.SetFieldValue("First Name", "User_1");
             commandAdapter.SetFieldValue("Last Name", "User_2");
@@ -36,8 +39,8 @@ namespace EasyTest.Tests {
             Assert.AreEqual("Developer", commandAdapter.GetFieldValue("Position"));
         }
         public void WorkingWithTasks_() {
-            commandAdapter.DoAction("ShowNavigationItem", "DemoTask_ListView");
-            commandAdapter.ProcessRecord("Task", new string[] { "Subject" }, new string[] { "Fix breakfast" }, "");
+            commandAdapter.DoAction("Navigation", "Default.Demo Task");
+            commandAdapter.ProcessRecord("Demo Task", new string[] { "Subject" }, new string[] { "Fix breakfast" }, "");
 
             ITestControl control = adapter.CreateTestControl(TestControlType.Table, "Contacts");
             IGridBase table = control.GetInterface<IGridBase>();

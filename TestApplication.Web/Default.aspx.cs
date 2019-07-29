@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using DevExpress.ExpressApp.Templates;
@@ -7,18 +7,12 @@ using DevExpress.ExpressApp.Web.Templates;
 using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 
 public partial class Default : BaseXafPage {
-    private void Splitter_PreRender(object sender, EventArgs e) {
-        Splitter.PreRender -= new EventHandler(Splitter_PreRender);
-        Splitter.Panes["Left"].Visible = VerticalToolsActionContainer.HasActiveActions() || DiagnosticActionContainer.HasActiveActions();
-    }
-	protected void Page_Load(object sender, EventArgs e) {
-        Splitter.PreRender += new EventHandler(Splitter_PreRender);
-        WebApplication.Instance.CreateControls(this);
-    }    
     protected override ContextActionsMenu CreateContextActionsMenu() {
         return new ContextActionsMenu(this, "Edit", "RecordEdit", "ObjectsCreation", "ListView", "Reports");
     }
-	public override void SetStatus(System.Collections.Generic.ICollection<string> statusMessages) {
-		InfoMessagesPanel.Text = string.Join("<br>", new List<string>(statusMessages).ToArray());
-	}
+    public override Control InnerContentPlaceHolder {
+        get {
+            return Content;
+        }
+    }
 }

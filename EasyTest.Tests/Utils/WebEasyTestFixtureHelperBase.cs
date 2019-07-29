@@ -2,6 +2,9 @@ using System;
 using System.IO;
 using DevExpress.EasyTest.Framework;
 using System.Reflection;
+using DevExpress.ExpressApp.Xpo;
+using System.Xml;
+using System.Collections.Generic;
 
 namespace EasyTest.Tests.Utils
 {
@@ -12,17 +15,37 @@ namespace EasyTest.Tests.Utils
         protected TestCommandAdapter commandAdapter;
         protected ICommandAdapter adapter;
         protected TestApplication application;
-        public WebEasyTestFixtureHelperBase(string relativePathToWebApplication, string absolutePathToWebApplication)
+        public WebEasyTestFixtureHelperBase(string relativePathToWebApplication)
         {
-            string testApplicationDir = Path.Combine(Assembly.GetExecutingAssembly().Location, relativePathToWebApplication);
-            if (!Directory.Exists(testApplicationDir))
-                testApplicationDir = absolutePathToWebApplication;
-            //string.Empty, testApplicationDir, testWebApplicationRootUrl + GetUrlOptions(), string.Empty
-            application = new TestApplication()
+            string testApplicationDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), relativePathToWebApplication);
+
+            application = new TestApplication
             {
-                Name = string.Empty,
+                IgnoreCase = true,
             };
-            //application.AddParam("SingleWebDev", true.ToString());
+            
+            List<XmlAttribute> additionalAttributes = new List<XmlAttribute>();
+            XmlDocument doc = new XmlDocument();
+            XmlAttribute entry = doc.CreateAttribute("PhysicalPath");
+            entry.Value = testApplicationDir;
+            additionalAttributes.Add(entry);
+            entry = doc.CreateAttribute("URL");
+            entry.Value = testWebApplicationRootUrl + GetUrlOptions();
+            additionalAttributes.Add(entry);
+
+            entry = doc.CreateAttribute("SingleWebDev");
+            entry.Value = true.ToString();
+            additionalAttributes.Add(entry);
+            
+            XmlAttribute entry2 = doc.CreateAttribute("DontRestartIIS");
+            entry2.Value = true.ToString();
+            additionalAttributes.Add(entry2);
+
+            XmlAttribute entry3 = doc.CreateAttribute("UseIISExpress");
+            entry3.Value = true.ToString();
+            additionalAttributes.Add(entry3);
+
+            application.AdditionalAttributes = additionalAttributes.ToArray();
         }
         protected virtual string GetUrlOptions()
         {
@@ -31,7 +54,7 @@ namespace EasyTest.Tests.Utils
         public virtual void SetupFixture()
         {
             webAdapter = new TestWebAdapter();
-            webAdapter.RunApplication(application, null);
+            webAdapter.RunApplication(application, InMemoryDataStoreProvider.ConnectionString);
         }
         public virtual void SetUp()
         {
@@ -40,14 +63,12 @@ namespace EasyTest.Tests.Utils
         }
         public virtual void TearDown()
         {
-            webAdapter.WebBrowser.Close();
-
-            //string urlParams = GetUrlOptions();
-            //webAdapter.WebBrowsers[0].Navigate(testWebApplicationRootUrl + urlParams + (urlParams.Contains("?") ? "&" : "?") + "Reset=true");
+            string urlParams = GetUrlOptions();
+            webAdapter.WebBrowser.Navigate(testWebApplicationRootUrl + urlParams + (urlParams.Contains("?") ? "&" : "?") + "Reset=true");
         }
         public virtual void TearDownFixture()
         {
-
+            webAdapter.WebBrowser.Close();
             webAdapter.KillApplication(application, KillApplicationContext.TestAborted);
         }
         public TestCommandAdapter CommandAdapter
@@ -64,5 +85,7 @@ namespace EasyTest.Tests.Utils
                 return adapter;
             }
         }
+
+        public bool IsWeb => true;
     }
 }

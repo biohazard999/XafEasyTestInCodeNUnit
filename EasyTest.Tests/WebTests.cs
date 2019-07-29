@@ -10,15 +10,17 @@ namespace EasyTest.Tests {
 
     [TestFixture]
     public class WebTests : CommonTests<WebTestApplicationHelper> {
-        [Test]
+        [Test, Order(1)]
         public void ChangeContactNameTest() {
             ChangeContactNameTest_();
         }
-        [Test]
+
+        [Test, Order(2)]
         public void WorkingWithTasks() {
             WorkingWithTasks_();
         }
-        [Test]
+
+        [Test, Order(3)]
         public void ChangeContactNameAgainTest() {
             Assert.AreEqual("John Nilsen", commandAdapter.GetCellValue("Contact", 0, "Full Name"));
             Assert.AreEqual("Mary Tellitson", commandAdapter.GetCellValue("Contact", 1, "Full Name"));
@@ -39,7 +41,8 @@ namespace EasyTest.Tests {
             Assert.AreEqual("User_1 User_2", commandAdapter.GetCellValue("Contact", 1, "Full Name"));
 
         }
-        [Test]
+
+        [Test, Order(4)]
         public void UnlinkActionTest() {
             commandAdapter.DoAction("Navigation", "Department");
             commandAdapter.ProcessRecord("Department", new string[] { "Title" }, new string[] { "Development Department" }, "");

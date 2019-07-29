@@ -5,6 +5,7 @@ using DevExpress.EasyTest.Framework;
 using DevExpress.ExpressApp.Xpo;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 
 namespace EasyTest.Tests.Utils {
     public abstract class WinEasyTestFixtureHelperBase : IEasyTestFixtureHelper {
@@ -32,7 +33,7 @@ namespace EasyTest.Tests.Utils {
         }
         public void SetUp() {
             applicationAdapter = new WinAdapter();
-            applicationAdapter.RunApplication(application, InMemoryDataStoreProvider.ConnectionString);
+            applicationAdapter.RunApplication(application, $"ConnectionString={InMemoryDataStoreProvider.ConnectionString};FOO=BAR");
             adapter = ((IApplicationAdapter)applicationAdapter).CreateCommandAdapter();
             commandAdapter = new TestCommandAdapter(adapter, application);
         }
@@ -51,5 +52,7 @@ namespace EasyTest.Tests.Utils {
                 return adapter;
             }
         }
+
+        public bool IsWeb => false;
     }
 }

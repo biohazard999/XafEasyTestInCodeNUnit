@@ -33,5 +33,7 @@ namespace EasyTest.Tests.Utils {
         public void TearDownFixture() {
             helper.TearDownFixture();
         }
+
+        protected bool IsWeb => helper.IsWeb;
     }
 }

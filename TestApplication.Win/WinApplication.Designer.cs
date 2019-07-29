@@ -29,6 +29,7 @@ namespace TestApplication.Win {
 			this.module5 = new DevExpress.ExpressApp.Validation.ValidationModule();
 			this.module6 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
 			this.module7 = new DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule();
+			this.module8 = new DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule();
 
 			this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
 			this.securitySimple1 = new DevExpress.ExpressApp.Security.SecuritySimple();
@@ -61,6 +62,7 @@ namespace TestApplication.Win {
 			this.Modules.Add(this.module5);
 			this.Modules.Add(this.module6);
 			this.Modules.Add(this.module7);
+			this.Modules.Add(this.module8);
 			this.Modules.Add(this.securityModule1);
 			this.Security = this.securitySimple1;
 			this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.TestApplicationWindowsFormsApplication_DatabaseVersionMismatch);
@@ -76,6 +78,7 @@ namespace TestApplication.Win {
 		private DevExpress.ExpressApp.Validation.ValidationModule module5;
 		private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
 		private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule module7;
+		private DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule module8;
 		private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
 		private DevExpress.ExpressApp.Security.SecuritySimple securitySimple1;
 		private DevExpress.ExpressApp.Security.AuthenticationActiveDirectory authenticationActiveDirectory1;

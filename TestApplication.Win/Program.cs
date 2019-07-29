@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 using DevExpress.ExpressApp;
@@ -14,13 +15,13 @@ namespace TestApplication.Win {
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main() {
+		static void Main(params string[] args) {
 #if EASYTEST
             DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
             TestApplication.EasyTest.InMemoryDataStoreProvider.Register();
 #endif
 
-			Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
 			TestApplicationWindowsFormsApplication winApplication = new TestApplicationWindowsFormsApplication();

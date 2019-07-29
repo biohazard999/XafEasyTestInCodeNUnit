@@ -5,6 +5,6 @@ namespace EasyTest.Tests {
         public WinTestApplicationHelper() : base("TestApplication.Win", "TestApplication.Win.exe") { }
     }
     public class WebTestApplicationHelper : WebEasyTestFixtureHelperBase {
-        public WebTestApplicationHelper() : base(@"..\..\..\TestApplication.Web", @"c:\Work\TestSolution\TestApplication.Web") { }
+        public WebTestApplicationHelper() : base(@"..\..\..\..\TestApplication.Web") { }
     }
 }
