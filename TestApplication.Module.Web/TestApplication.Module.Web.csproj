@@ -40,9 +40,9 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <PackageReference Include="DevExpress.ExpressApp.Images" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Web.All" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Images" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Web.All" Version="19.1.5" />
     <EmbeddedResource Update="WebModule.resx">
       <DependentUpon>WebModule.cs</DependentUpon>
       <SubType>Designer</SubType>

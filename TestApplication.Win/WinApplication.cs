@@ -1,27 +1,32 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
 
-namespace TestApplication.Win {
-	public partial class TestApplicationWindowsFormsApplication : WinApplication {
-		public TestApplicationWindowsFormsApplication() {
-			InitializeComponent();
+namespace TestApplication.Win
+{
+    public partial class TestApplicationWindowsFormsApplication : WinApplication
+    {
+        public TestApplicationWindowsFormsApplication()
+        {
+            InitializeComponent();
             DelayedViewItemsInitialization = true;
-		}
+#if EASYTEST
+            DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
+            CheckCompatibilityType = CheckCompatibilityType.ModuleInfo;
+#endif
+        }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
         {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString), false);
         }
 
-        private void TestApplicationWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void TestApplicationWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e)
+        {
 #if EASYTEST
-			e.Updater.Update();
-			e.Handled = true;
+            e.Updater.Update();
+            e.Handled = true;
             TestApplication.EasyTest.InMemoryDataStoreProvider.Save();
 #else
 			if(System.Diagnostics.Debugger.IsAttached) {
@@ -39,6 +44,6 @@ namespace TestApplication.Win {
 					"for more detailed information. If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/");
 			}
 #endif
-		}
-	}
+        }
+    }
 }

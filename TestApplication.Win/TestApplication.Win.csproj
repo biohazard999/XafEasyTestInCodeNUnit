@@ -29,10 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\TestApplication.Web\EasyTest\InMemoryDataStoreProvider.cs" Link="EasyTest\InMemoryDataStoreProvider.cs" />
+    <Compile Include="..\TestApplication.Web\EasyTest\PrintDataExtensions.cs" Link="EasyTest\PrintDataExtensions.cs" />
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -70,13 +72,13 @@
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Images" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Win" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Win.All" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Images" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win.BonusSkins" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Images" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Win" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Win.All" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Images" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.BonusSkins" Version="19.1.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestApplication.Module\TestApplication.Module.csproj" />

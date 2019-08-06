@@ -98,6 +98,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="EasyTest\InMemoryDataStoreProvider.cs" />
+    <Compile Include="EasyTest\PrintDataExtensions.cs" />
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -122,10 +123,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo">
-      <Version>19.1.4</Version>
+      <Version>19.1.5</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.ExpressApp.Web.All">
-      <Version>19.1.4</Version>
+      <Version>19.1.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

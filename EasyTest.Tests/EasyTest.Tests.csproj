@@ -17,19 +17,13 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.EasyTest.v19.1">
-      <HintPath>C:\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.EasyTest.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1">
-      <HintPath>C:\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v19.1">
-      <HintPath>C:\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.ExpressApp.EasyTest.WinAdapter.v19.1.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.EasyTest" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.EasyTest.WebAdapter" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.EasyTest.WinAdapter" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
   </ItemGroup>

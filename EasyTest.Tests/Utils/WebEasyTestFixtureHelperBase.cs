@@ -38,7 +38,7 @@ namespace EasyTest.Tests.Utils
             additionalAttributes.Add(entry);
             
             XmlAttribute entry2 = doc.CreateAttribute("DontRestartIIS");
-            entry2.Value = true.ToString();
+            entry2.Value = false.ToString();
             additionalAttributes.Add(entry2);
 
             XmlAttribute entry3 = doc.CreateAttribute("UseIISExpress");

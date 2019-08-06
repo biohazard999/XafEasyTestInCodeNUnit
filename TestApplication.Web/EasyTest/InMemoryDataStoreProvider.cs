@@ -1,41 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web;
 using DevExpress.Xpo.DB;
-using System.Data;
 using DevExpress.Xpo.DB.Helpers;
 
-namespace TestApplication.EasyTest {
-    public class InMemoryDataStoreProvider : DevExpress.Xpo.DB.InMemoryDataStore {
+namespace TestApplication.EasyTest
+{
+    public class InMemoryDataStoreProvider : DevExpress.Xpo.DB.InMemoryDataStore
+    {
         new public const string XpoProviderTypeString = "InMemoryDataSet";
-        private static DataSet dataSet = new DataSet();
-        private static DataSet savedDataSet;
-        private static Dictionary<AutoCreateOption, IDataStore> dic = new Dictionary<AutoCreateOption, IDataStore>();
 
-        new public static IDataStore CreateProviderFromString(string connectionString, AutoCreateOption autoCreateOption, out IDisposable[] objectsToDisposeOnDisconnect) {
-            IDataStore testDataStoreSerialized;
-            if(!dic.TryGetValue(autoCreateOption, out testDataStoreSerialized)) {
-                testDataStoreSerialized = new DataSetDataStore(dataSet, autoCreateOption);
-                dic[autoCreateOption] = testDataStoreSerialized;
+        static InMemoryDataStoreProvider() => Register();
+
+        new public static void Register()
+            => RegisterDataStoreProvider(XpoProviderTypeString, new DataStoreCreationFromStringDelegate(CreateProviderFromString));
+
+        private static object syncRoot = new object();
+
+        private static InMemoryDataStore _savedDataSet;
+        private static InMemoryDataStore savedDataSet
+        {
+            get => _savedDataSet;
+            set
+            {
+                lock (syncRoot)
+                {
+                    _savedDataSet = value;
+                }
             }
+        }
+
+        private static InMemoryDataStore _store;
+        private static InMemoryDataStore store
+        {
+            get => _store;
+            set
+            {
+                lock (syncRoot)
+                {
+                    _store = value;
+                }
+            }
+        }
+
+        new public static IDataStore CreateProviderFromString(string connectionString, AutoCreateOption autoCreateOption, out IDisposable[] objectsToDisposeOnDisconnect)
+        {
+            if (store == null)
+            {
+                store = new InMemoryDataStore(AutoCreateOption.DatabaseAndSchema);
+            }
+
             objectsToDisposeOnDisconnect = new IDisposable[] { };
-            return testDataStoreSerialized;
+
+            return store;
         }
-        static InMemoryDataStoreProvider() {
-        }
-        new public static void Register() {
-            DataStoreBase.RegisterDataStoreProvider(XpoProviderTypeString, new DataStoreCreationFromStringDelegate(CreateProviderFromString));
-        }
+
         public static bool HasData { get { return savedDataSet != null; } }
-        public static void Save() {
-            if(!HasData) {
-                savedDataSet = dataSet.Copy();
+
+        public static void Save()
+        {
+            if (!HasData && store != null)
+            {
+                savedDataSet = store;
             }
         }
-        public static void Reload() {
-            if(HasData) {
-                dataSet = savedDataSet.Copy();
-                dic.Clear();
+
+        public static void Reload()
+        {
+            if (HasData && store != null)
+            {
+                store.ReadFromInMemoryDataStore(savedDataSet);
             }
         }
     }
