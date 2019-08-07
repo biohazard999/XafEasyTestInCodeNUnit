@@ -9,7 +9,6 @@ namespace EasyTest.Tests.Utils {
         void TearDownFixture();
         TestCommandAdapter CommandAdapter { get; }
         ICommandAdapter Adapter { get; }
-
         bool IsWeb { get; }
     }
 }

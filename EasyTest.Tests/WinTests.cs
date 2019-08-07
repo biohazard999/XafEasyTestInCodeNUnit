@@ -7,15 +7,13 @@ namespace EasyTest.Tests
     public class WinTests : CommonTests<WinTestApplicationHelper>
     {
         [Test]
-        public void ChangeContactNameTest()
-        {
-            ChangeContactNameTest_();
-        }
+        public void ChangeContactNameTest() => ChangeContactNameTest_();
 
         [Test]
-        public void WorkingWithTasks()
-        {
-            WorkingWithTasks_();
-        }
+        public void WorkingWithTasks() => WorkingWithTasks_();
+
+        [Test]
+        public void ChangeContactNameAgainTest()
+            => ChangeContactNameAgainTest_();
     }
 }

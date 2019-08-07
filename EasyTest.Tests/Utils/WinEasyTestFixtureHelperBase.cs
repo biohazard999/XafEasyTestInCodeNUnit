@@ -1,58 +1,55 @@
-using System;
-using DevExpress.ExpressApp.EasyTest.WinAdapter;
-using System.IO;
-using DevExpress.EasyTest.Framework;
-using DevExpress.ExpressApp.Xpo;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
-using System.Linq;
+using DevExpress.EasyTest.Framework;
+using DevExpress.ExpressApp.EasyTest.WinAdapter;
+using DevExpress.ExpressApp.Xpo;
 
-namespace EasyTest.Tests.Utils {
-    public abstract class WinEasyTestFixtureHelperBase : IEasyTestFixtureHelper {
-        private string applicationDirectoryName;
-        private string applicationName;
+namespace EasyTest.Tests.Utils
+{
+    public abstract class WinEasyTestFixtureHelperBase : TestFixtureHelperBase
+    {
         private TestApplication application;
         private WinAdapter applicationAdapter;
-        protected TestCommandAdapter commandAdapter;
+        private string applicationDirectoryName;
+        private string applicationName;
         protected ICommandAdapter adapter;
-        public WinEasyTestFixtureHelperBase(string applicationDirectoryName, string applicationName) {
+        protected TestCommandAdapter commandAdapter;
+
+        public WinEasyTestFixtureHelperBase(string applicationDirectoryName, string applicationName)
+        {
             this.applicationDirectoryName = applicationDirectoryName;
             this.applicationName = applicationName;
         }
-        public void SetupFixture() {
-            application = new TestApplication();
-            List<XmlAttribute> additionalAttributes = new List<XmlAttribute>();
-            XmlDocument doc = new XmlDocument();
-            XmlAttribute entry = doc.CreateAttribute("FileName");
-            entry.Value = Path.GetFullPath(Path.Combine(@"..\..\..\..\" + applicationDirectoryName, @"bin\EasyTest\net462\" + applicationName));
-            additionalAttributes.Add(entry);
-            entry = doc.CreateAttribute("CommunicationPort");
-            entry.Value = "4100";
-            additionalAttributes.Add(entry);
-            application.AdditionalAttributes = additionalAttributes.ToArray();
-        }
-        public void SetUp() {
+
+        public override void SetUp()
+        {
             applicationAdapter = new WinAdapter();
             applicationAdapter.RunApplication(application, $"ConnectionString={InMemoryDataStoreProvider.ConnectionString};FOO=BAR");
             adapter = ((IApplicationAdapter)applicationAdapter).CreateCommandAdapter();
             commandAdapter = new TestCommandAdapter(adapter, application);
         }
-        public void TearDown() {
-            applicationAdapter.KillApplication(application, KillApplicationContext.TestAborted);
-        }
-        public void TearDownFixture() {
-        }
-        public TestCommandAdapter CommandAdapter {
-            get {
-                return commandAdapter;
-            }
-        }
-        public ICommandAdapter Adapter {
-            get {
-                return adapter;
-            }
+
+        public override void SetupFixture()
+        {
+            application = new TestApplication();
+            var doc = new XmlDocument();
+            var additionalAttributes = new List<XmlAttribute>
+            {
+                CreateAttribute(doc, "FileName", Path.GetFullPath(Path.Combine($@"..\..\..\..\{applicationDirectoryName}", @"bin\EasyTest\net462\" + applicationName))),
+                CreateAttribute(doc, "CommunicationPort", "4100"),
+            };
+
+            application.AdditionalAttributes = additionalAttributes.ToArray();
         }
 
-        public bool IsWeb => false;
+        public override void TearDown()
+            => applicationAdapter.KillApplication(application, KillApplicationContext.TestAborted);
+
+        public override void TearDownFixture() { }
+
+        public override ICommandAdapter Adapter => adapter;
+        public override TestCommandAdapter CommandAdapter => commandAdapter;
+        public override bool IsWeb => false;
     }
 }
